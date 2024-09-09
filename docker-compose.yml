@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app1:
+    build: ./app1
+    container_name: app1
+    ports:
+      - "8081:80"
+    depends_on:
+      - db1
+
+  app2:
+    build: ./app2
+    container_name: app2
+    ports:
+      - "8082:80"
+    depends_on:
+      - db2
+
+  db1:
+    image: mysql:5.7
+    container_name: db1
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword1
+      MYSQL_DATABASE: app1_db
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: password1
+    ports:
+      - "33061:3306"
+    volumes:
+      - ./app1/mysql_data:/var/lib/mysql  # Bind mount para dados do db1
+
+  db2:
+    image: mysql:5.7
+    container_name: db2
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword2
+      MYSQL_DATABASE: app2_db
+      MYSQL_USER: user2
+      MYSQL_PASSWORD: password2
+    ports:
+      - "33062:3306"
+    volumes:
+      - ./app2/mysql_data:/var/lib/mysql  # Bind mount para dados do db2
