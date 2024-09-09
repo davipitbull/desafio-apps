@@ -1,5 +1,4 @@
 
-```markdown
 # Desafio - Aplicações PHP e MySQL com Docker
 
 ## Descrição
